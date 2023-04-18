@@ -18,8 +18,19 @@ struct ContentView: View {
     
     var body: some View {
         
+        
+        Text("New Habits")
+            .font(.title2)
+            .padding()
+            .background(Rectangle()
+                .foregroundColor(.white)
+                        //hörnen blir runda på kortet
+                .cornerRadius(15)
+                .shadow(radius: 15))
+        
         VStack {
             
+           // Image(systemName: "checkmark.circle")
             //Här ska vi visa upp våra habits i en lista
             List {
                 
@@ -32,6 +43,10 @@ struct ContentView: View {
                         // Namnet på våran habit
                         Text(habit.newHabit)
                         Spacer()
+                        
+                       // Text(habit.monday)
+                            
+                        
                         // Vi ska ha en checkbox för de specifika dagarna som kan ändras
                         //checkmark.circle om den är utförd(true) annars en tom cirkel(false).
                            Button(action: {
@@ -46,8 +61,56 @@ struct ContentView: View {
                                // Men om vanan är utförd för den dag så får vi den i checkade bilden
                                // Om den är true alltså utförd visas den andra bilden med den i checkade cirkeln
                              Image(systemName: habit.done ? "checkmark.circle" : "questionmark.circle.fill")
-                                
+                               
                            })
+                        
+                    }
+                    VStack{
+                        
+                        HStack{
+                            Text("Måndag")
+                            Spacer()
+                            Image(systemName: habit.monday ? "checkmark.circle" :"1.circle")
+                          
+                        }
+                        HStack{
+                            Text("Tisdag")
+                            Spacer()
+                            Image(systemName: habit.tuesday ? "checkmark.circle" :"2.circle")
+                          
+                        }
+                        HStack{
+                            Text("Onsdag")
+                            Spacer()
+                            Image(systemName: habit.wednesday ? "checkmark.circle" :"3.circle")
+                          
+                        }
+                        
+                        HStack{
+                            Text("Torsdag")
+                            Spacer()
+                            Image(systemName: habit.thursday ? "checkmark.circle" :
+                                    "4.circle")
+                            
+                        }
+                        HStack{
+                            Text("Fredag")
+                            Spacer()
+                            Image(systemName: habit.friday ? "checkmark.circle" :"5.circle")
+                          
+                        }
+                        HStack{
+                            Text("Lördag")
+                            Spacer()
+                            Image(systemName: habit.saturday ? "checkmark.circle" :"6.circle")
+                          
+                        }
+                        HStack{
+                            Text("Söndag")
+                            Spacer()
+                            Image(systemName: habit.sunday ? "checkmark.circle" :"7.circle")
+                          
+                        }
                         
                     }
                     
@@ -62,7 +125,7 @@ struct ContentView: View {
             
             // Här lyssnar den efter ändringar och uppdaterar när den märker av dem
            updateAppAndListenToFirestore()
-           // saveDataToFirestore(nameOfHabit: "Träna")
+          //  saveDataToFirestore(nameOfHabit: "Träna")
          
         }
         .padding()
@@ -74,7 +137,7 @@ struct ContentView: View {
     
     // Här sparar vi datan till firestore
     func saveDataToFirestore(nameOfHabit: String){
-        
+       
         let habit = Habit(newHabit: nameOfHabit)
         // Spara
         do {
@@ -102,8 +165,6 @@ struct ContentView: View {
             } else{
                 // Nur läser vi ner de nya doc men tömmer de gamla först så det ej blir dubbletter.
                 habits.removeAll()
-                
-                
                 for document in snapshot.documents {
                     do {
                     // Omvandla dokumentet till en habit så de kan visas upp i en ny lista
