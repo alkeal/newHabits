@@ -19,6 +19,7 @@
 		0000CE1D29ED8880008B4502 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0000CE1C29ED8880008B4502 /* FirebaseFirestoreSwift */; };
 		00E6405F29EEAB1000619A46 /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E6405E29EEAB1000619A46 /* Habit.swift */; };
 		00E6406229EEBB9C00619A46 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 00E6406129EEBB9C00619A46 /* GoogleService-Info.plist */; };
+		00FF153629F00236002673B4 /* ContentVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FF153529F00236002673B4 /* ContentVM.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		00E6405E29EEAB1000619A46 /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
 		00E6406029EEBAB800619A46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		00E6406129EEBB9C00619A46 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		00FF153529F00236002673B4 /* ContentVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentVM.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				0000CDF129ED876D008B4502 /* Assets.xcassets */,
 				0000CDF329ED876D008B4502 /* Preview Content */,
 				00E6405E29EEAB1000619A46 /* Habit.swift */,
+				00FF153529F00236002673B4 /* ContentVM.swift */,
 			);
 			path = newHabits;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00FF153629F00236002673B4 /* ContentVM.swift in Sources */,
 				00E6405F29EEAB1000619A46 /* Habit.swift in Sources */,
 				0000CDF029ED876C008B4502 /* ContentView.swift in Sources */,
 				0000CDEE29ED876C008B4502 /* newHabitsApp.swift in Sources */,
