@@ -44,7 +44,6 @@ struct StartPageView : View {
             Color(.systemGray)
                 .ignoresSafeArea()
             
-            
             VStack{
          Text("New Habits")
             .foregroundColor(.orange)
@@ -63,14 +62,13 @@ struct StartPageView : View {
                 }
                 
             }
-            
-          
+                
         }, label: {
             
             Image(systemName: "person.crop.circle.badge.plus")
                 .padding(260)
                 .foregroundColor(.orange)
-                .font(.system(size: 70.0))
+                .font(.system(size: 60.0))
                  .padding()
                  
                
@@ -87,14 +85,13 @@ struct StartPageView : View {
             
             
         })
-        .foregroundColor(.gray)
+        .foregroundColor(Color(hue: 120, saturation: 138, brightness: 168))
+      
                 }
         
             }
             
         }
-        
-      
     
   
 }
@@ -117,9 +114,9 @@ struct HabitsView: View {
             
             
         Text("New Habits")
-            .font(.title2)
+            .font(.title)
             .padding()
-            
+        
         
         
         VStack {
@@ -219,13 +216,13 @@ struct HabitsView: View {
                      }
                       
                 }
-               
-                    
-        }
+
+            }
             // En knapp för att lägga till en ny "habit"
             Button(action: {
                 
                 addHabit = true
+                
                 
             }, label: {
                 
@@ -240,15 +237,19 @@ struct HabitsView: View {
             
             .alert("Lägg till en ny vana",isPresented: $addHabit){
                 TextField("Skriv här",text: $newHabitName)
-                Button("Add" ,action: {
+                Button("Spara" ,action: {
                     contentVM.saveDataToFirestore(nameOfHabit: newHabitName)
                     newHabitName = ""
                     
                    
                 })
-                
+                Button("Släng",action:{
+                    addHabit = false
+                })
+                                
             }
             
+            .foregroundColor(Color(hue: 127, saturation: 146, brightness: 168))
         } .onAppear(){
             
             // Här lyssnar den efter ändringar och uppdaterar när den märker av dem
@@ -269,45 +270,44 @@ struct HabitsView: View {
     
     
 
-struct RowView: View {
-    
-    let habit : Habit
-    let vm : ContentVM
-    
-    var body: some View {
-        HStack{
-            // Namnet på våran habit
-            Text(habit.newHabit)
-            Spacer()
-            
-            // Text(habit.monday)
-            
-            
-            // Vi ska ha en checkbox för de specifika dagarna som kan ändras
-            //checkmark.circle om den är utförd(true) annars en tom cirkel(false).
-            Button(action: {
-                
-                
-                vm.toggle(habit: habit)
-                
-            }, label: {
-                // Här visar vi upp bilderna
-                // Men om vanan är utförd för den dag så får vi den i checkade bilden
-                // Om den är true alltså utförd visas den andra bilden med den i checkade cirkeln
-                Image(systemName: habit.done ? "checkmark.seal.fill" : "questionmark.circle.fill")
-                
-                
-            })
-            // Färg på titelns checkmarkering
-            .foregroundColor(.green)
-            
-        }
-        //Färg på "habits" titeln
-        .foregroundColor(.black)
-        .font(.title3)
-    }
+    struct RowView: View {
         
-}
+        let habit : Habit
+        let vm : ContentVM
+        
+        var body: some View {
+            HStack{
+                // Namnet på våran habit
+                Text(habit.newHabit)
+                Spacer()
+                
+                // Text(habit.monday)
+                
+                
+                // Vi ska ha en checkbox för de specifika dagarna som kan ändras
+                //checkmark.circle om den är utförd(true) annars en tom cirkel(false).
+                Button(action: {
+                    
+                    
+                    vm.toggle(habit: habit)
+                    
+                }, label: {
+                    // Här visar vi upp bilderna
+                    // Men om vanan är utförd för den dag så får vi den i checkade bilden
+                    // Om den är true alltså utförd visas den andra bilden med den i checkade cirkeln
+                    Image(systemName: habit.done ?   "questionmark.circle.fill":"checkmark.seal.fill")
+                    
+                })
+                // Färg på titelns checkmarkering
+                .foregroundColor(.green)
+                
+            }
+            //Färg på "habits" titeln
+            .foregroundColor(.black)
+            .font(.title3)
+        }
+        
+    }
     
     
     struct ContentView_Previews: PreviewProvider {
