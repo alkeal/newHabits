@@ -79,8 +79,9 @@ struct StartPageView : View {
                             
                     .foregroundColor(.gray)
                             //hörnen blir runda på kortet
-                    .cornerRadius(15)
-                    .shadow(radius: 10))
+                    //.cornerRadius(15)
+                    //.shadow(radius: 10)
+                )
                     
             
             
@@ -118,11 +119,11 @@ struct HabitsView: View {
         Text("New Habits")
             .font(.title2)
             .padding()
-            .background(Rectangle()
-                .foregroundColor(.white)
+            //.background(Rectangle()
+             //   .foregroundColor(.white)
                         //hörnen blir runda på kortet
-                .cornerRadius(105)
-                .shadow(radius: 15))
+                //.cornerRadius(105)
+                //.shadow(radius: 15))
         
         
         VStack {
@@ -137,7 +138,7 @@ struct HabitsView: View {
                 ForEach(contentVM.habits) { habit in
                     // Namnet på vanan och en ruta där vi kan checka av varje dag i vecka
                     // In Hstack så brevid varandra
-                    RowView(habit: habit, vm: contentVM)
+                    RowView(habit: habit, vm : contentVM)
                     
                         
                     VStack{
@@ -198,13 +199,19 @@ struct HabitsView: View {
                             .foregroundColor(habit.sunday ? .green : .black)
                             
                         }
-                        
-                    
+                   
 
                   
                     
+                   }
+                // Ger oss möjligheten att radera en "habit" med hjälp av index
+                .onDelete(){ indexSet in
+                    for index in indexSet {
+                        // Vi skickar med vilken plats den som vi raderar är på
+                        contentVM.deleteFromFirestoreAndList(index: index)
+                    }
+                    
                 }
-                
                
                     
         }
@@ -239,7 +246,10 @@ struct HabitsView: View {
             
             // Här lyssnar den efter ändringar och uppdaterar när den märker av dem
             contentVM.updateAppAndListenToFirestore()
-         
+            
+            
+            
+            
         }
         .padding()
         //.foregroundColor(.green)
