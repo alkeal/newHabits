@@ -109,15 +109,20 @@ struct HabitsView: View {
     // State som kommer ihåg vad vi skriver för vana
     @State var newHabitName = ""
     
+    
+    
     var body: some View {
     
             
-            
+       
         Text("New Habits")
             .font(.title)
             .padding()
+        //Spacer()
         
+       
         
+           
         
         VStack {
             
@@ -137,7 +142,7 @@ struct HabitsView: View {
                         .foregroundColor(.white)
                                 //hörnen blir runda på kortet
                         .cornerRadius(10)
-                        .shadow(radius: 10))
+                        .shadow(radius: 5))
 
                     VStack{
                        
@@ -148,7 +153,7 @@ struct HabitsView: View {
                                 Text("Måndag")
                                 Spacer()
                                 Image(systemName: habit.monday ? "checkmark.seal.fill" :"1.circle")
-                               
+                                                            
                                 
                             }
                             .foregroundColor(habit.monday ? .green : .black)
@@ -248,8 +253,9 @@ struct HabitsView: View {
                 })
                                 
             }
-            
+           
             .foregroundColor(Color(hue: 127, saturation: 146, brightness: 168))
+              
         } .onAppear(){
             
             // Här lyssnar den efter ändringar och uppdaterar när den märker av dem
@@ -298,6 +304,7 @@ struct HabitsView: View {
                     Image(systemName: habit.done ?   "questionmark.circle.fill":"checkmark.seal.fill")
                     
                 })
+                
                 // Färg på titelns checkmarkering
                 .foregroundColor(.green)
                 
@@ -321,11 +328,4 @@ struct HabitsView: View {
 
 
 
-    //.alert("Är du säker att du vill radera din vana?",isPresented: ""){
-     //   Button("Ja" ,action: {
-     //       contentVM.deleteFromFirestoreAndList(index: index)
-            
-           
-      //  })
-      //
-    //}
+ 
