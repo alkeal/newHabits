@@ -110,6 +110,7 @@ struct HabitsView: View {
     @State var newHabitName = ""
     
     
+
     
     var body: some View {
     
@@ -180,11 +181,14 @@ struct HabitsView: View {
                                 
                             }
                             .foregroundColor(habit.thursday ? .green : .black)
+                        
                             HStack{
-                                Text("Fredag")
+                                Button ("Fredag",
+                                        action:{
+                                   // habit.friday = true
+                                })
                                 Spacer()
                                 Image(systemName: habit.friday ? "checkmark.seal.fill" :"5.circle")
-                                
                             }
                             .foregroundColor(habit.friday ? .green : .black)
                             HStack{
@@ -241,8 +245,10 @@ struct HabitsView: View {
             })
             
             .alert("Lägg till en ny vana",isPresented: $addHabit){
+                
                 TextField("Skriv här",text: $newHabitName)
                 Button("Spara" ,action: {
+                
                     contentVM.saveDataToFirestore(nameOfHabit: newHabitName)
                     newHabitName = ""
                     
@@ -269,7 +275,7 @@ struct HabitsView: View {
        
         .background(Rectangle()
         .foregroundColor(.white)
-                //hörnen blir runda på kortet
+        //hörnen blir runda på kortet
         .cornerRadius(0)
         .shadow(radius: 0))
     }
@@ -278,7 +284,7 @@ struct HabitsView: View {
 
     struct RowView: View {
         
-        let habit : Habit
+        var habit : Habit
         let vm : ContentVM
         
         var body: some View {
@@ -286,9 +292,7 @@ struct HabitsView: View {
                 // Namnet på våran habit
                 Text(habit.newHabit)
                 Spacer()
-                
-                // Text(habit.monday)
-                
+               
                 
                 // Vi ska ha en checkbox för de specifika dagarna som kan ändras
                 //checkmark.circle om den är utförd(true) annars en tom cirkel(false).
@@ -297,12 +301,13 @@ struct HabitsView: View {
                     
                     vm.toggle(habit: habit)
                     
+                    
                 }, label: {
                     // Här visar vi upp bilderna
                     // Men om vanan är utförd för den dag så får vi den i checkade bilden
                     // Om den är true alltså utförd visas den andra bilden med den i checkade cirkeln
                     Image(systemName: habit.done ?   "questionmark.circle.fill":"checkmark.seal.fill")
-                    
+                    //Image(systemName: habit.mondayDone ? "checkmark.seal.fill":"6.circle")
                 })
                 
                 // Färg på titelns checkmarkering

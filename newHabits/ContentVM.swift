@@ -26,14 +26,14 @@ class ContentVM : ObservableObject {
     // Och det är en tom array med habit
     @Published var habits = [Habit]()
     
-
+    
     func deleteFromFirestoreAndList(index: Int){
         
         // Detta ger oss användaren och sökvägen till dess dokument
         // guard så om det blir nil så
         guard let user = auth.currentUser else {return}
-       // Samlingen heter users , sedan dokument för de specifika användarna och sedan deras "habits"
-       let habitsRef = db.collection("users").document(user.uid).collection("habits")
+        // Samlingen heter users , sedan dokument för de specifika användarna och sedan deras "habits"
+        let habitsRef = db.collection("users").document(user.uid).collection("habits")
         
         //Här får vi tag på rätt dokument i indexet när vi raderar
         let habit = habits[index]
@@ -45,98 +45,99 @@ class ContentVM : ObservableObject {
         
     }
     
-
+    
     func toggle(habit: Habit){
         
-       
-            // guard så om det blir nil så
-            guard let user = auth.currentUser else {return}
-           // Samlingen heter users , sedan dokument för de specifika användarna och sedan deras "habits"
-           let habitsRef = db.collection("users").document(user.uid).collection("habits")
-            
-           if let id = habit.id {
-               habitsRef.document(id).updateData(["done" : !habit.done])
-               habitsRef.document(id).updateData(["monday" : !habit.monday])
-               habitsRef.document(id).updateData(["tuesday" : !habit.tuesday])
-               habitsRef.document(id).updateData(["wednesday" : !habit.wednesday])
-               habitsRef.document(id).updateData(["thursday" : !habit.thursday])
-               habitsRef.document(id).updateData(["friday" : !habit.friday])
-               habitsRef.document(id).updateData(["saturday" : !habit.saturday])
-               habitsRef.document(id).updateData(["sunday" : !habit.sunday])
-               
-           }
-    }
-    
-
-      // Här sparar vi datan till firestore
-    func saveDataToFirestore(nameOfHabit: String){
-    
-              // guard så om det blir nil så
-          guard let user = auth.currentUser else {return}
-            // Samlingen heter users , sedan dokument för de specifika användarna och sedan deras "habits"
-          let habitsRef = db.collection("users").document(user.uid).collection("habits")
-    
-          let habit = Habit(newHabit: nameOfHabit)
-       
-          
-            // Spara
-          do {
-            try habitsRef.addDocument(from: habit)
-           } catch {
-             print("Could not save to db")
-               
-    }
-}
-
-
-
-
-     // Så vi kan läsa från firestore och se ändringar med en snapshotlistner
-
-func updateAppAndListenToFirestore(){
-    
-        // guard så om det blir nil så
-       guard let user = auth.currentUser else {return}
-    
-          // Samlingen heter users , sedan dokument för de specifika användarna och sedan deras "habits"
-          let habitsRef = db.collection("users").document(user.uid).collection("habits")
-         
-          // När något händer i "habits" då lyssnar snapshot på det och uppdaterar
-        habitsRef.addSnapshotListener() {
-        snapshot, err in
-        // Om snapshotet är nil så gör den inget och går vidare , därför använder vi guard.
-        guard let snapshot = snapshot else {return}
         
-        if let err = err {
-            
-            print("Error getting doc \(err)")
-            
-          } else {
-              
-            // Nur läser vi ner de nya doc men tömmer de gamla först så det ej blir dubbletter.
-            self.habits.removeAll()
-              
-            for document in snapshot.documents {
-                do {
-                // Omvandla dokumentet till en habit så de kan visas upp i en ny lista
-                    // med try så försöker vi hämta dokumentet men om det blir fel så printar vi nedan på catch
-                  let habit = try document.data(as : Habit.self)
-                    
-                    // Om try funkar så lägger vi in våran habit i en lista
-                    self.habits.append(habit)
-                    
-                } catch {
-                    // Här fångar vi om det är fel och printar ut det
-                    print("Cant read from db ,Error! ")
-                    
-                }
-                
-            }
+        // guard så om det blir nil så
+        guard let user = auth.currentUser else {return}
+        // Samlingen heter users , sedan dokument för de specifika användarna och sedan deras "habits"
+        let habitsRef = db.collection("users").document(user.uid).collection("habits")
+        
+        if let id = habit.id {
+            habitsRef.document(id).updateData(["done" : !habit.done])
+           // habitsRef.document(id).updateData(["monday" : !habit.mondayDone])
+         //   habitsRef.document(id).updateData(["tuesday" : !habit.tuesdayDone])
+          //  habitsRef.document(id).updateData(["wednesday" : !habit.wednesdayDone])
+          //  habitsRef.document(id).updateData(["thursday" : !habit.thursdayDone])
+          //  habitsRef.document(id).updateData(["friday" : !habit.fridayDone])
+         //   habitsRef.document(id).updateData(["saturday" : !habit.saturdayDone])
+           // habitsRef.document(id).updateData(["sunday" : !habit.sundayDone])
             
         }
     }
     
-}
-
-
+    
+    // Här sparar vi datan till firestore
+    func saveDataToFirestore(nameOfHabit: String){
+        
+        // guard så om det blir nil så
+        guard let user = auth.currentUser else {return}
+        // Samlingen heter users , sedan dokument för de specifika användarna och sedan deras "habits"
+        let habitsRef = db.collection("users").document(user.uid).collection("habits")
+        
+        let habit = Habit(newHabit: nameOfHabit)
+        
+        
+        // Spara
+        do {
+            try habitsRef.addDocument(from: habit)
+        } catch {
+            print("Could not save to db")
+            
+        }
+    }
+    
+    
+    
+    
+    // Så vi kan läsa från firestore och se ändringar med en snapshotlistner
+    
+    func updateAppAndListenToFirestore(){
+        
+        // guard så om det blir nil så
+        guard let user = auth.currentUser else {return}
+        
+        // Samlingen heter users , sedan dokument för de specifika användarna och sedan deras "habits"
+        let habitsRef = db.collection("users").document(user.uid).collection("habits")
+        
+        // När något händer i "habits" då lyssnar snapshot på det och uppdaterar
+        habitsRef.addSnapshotListener() {
+            snapshot, err in
+            // Om snapshotet är nil så gör den inget och går vidare , därför använder vi guard.
+            guard let snapshot = snapshot else {return}
+            
+            if let err = err {
+                
+                print("Error getting doc \(err)")
+                
+            } else {
+                
+                // Nur läser vi ner de nya doc men tömmer de gamla först så det ej blir dubbletter.
+                self.habits.removeAll()
+                
+                for document in snapshot.documents {
+                    do {
+                        // Omvandla dokumentet till en habit så de kan visas upp i en ny lista
+                        // med try så försöker vi hämta dokumentet men om det blir fel så printar vi nedan på catch
+                        let habit = try document.data(as : Habit.self)
+                        
+                        // Om try funkar så lägger vi in våran habit i en lista
+                        self.habits.append(habit)
+                        
+                    } catch {
+                        // Här fångar vi om det är fel och printar ut det
+                        print("Cant read from db ,Error! ")
+                        
+                    }
+                    
+                 }
+                
+             }
+            
+         }
+        
+    }
+    
+    
 }
