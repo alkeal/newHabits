@@ -55,15 +55,11 @@ class ContentVM : ObservableObject {
         let habitsRef = db.collection("users").document(user.uid).collection("habits")
         
         if let id = habit.id {
-            habitsRef.document(id).updateData(["done" : !habit.done])
+           // habitsRef.document(id).updateData(["done" : !habit.done])
            // habitsRef.document(id).updateData(["monday" : !habit.mondayDone])
-         //   habitsRef.document(id).updateData(["tuesday" : !habit.tuesdayDone])
-          //  habitsRef.document(id).updateData(["wednesday" : !habit.wednesdayDone])
-          //  habitsRef.document(id).updateData(["thursday" : !habit.thursdayDone])
-          //  habitsRef.document(id).updateData(["friday" : !habit.fridayDone])
-         //   habitsRef.document(id).updateData(["saturday" : !habit.saturdayDone])
-           // habitsRef.document(id).updateData(["sunday" : !habit.sundayDone])
-            
+        
+           habitsRef.document(id).updateData(["friday" : !habit.friday])
+        //    habitsRef.document(id).updateData(["saturday" : !habit.saturday])
         }
     }
     

@@ -27,12 +27,6 @@ struct Habit : Codable, Identifiable{
     var sunday : Bool = false
     // Om en vanan är uppnåd under en dag ska den kunna
     var done : Bool = true
-   // var mondayDone : Bool = false
-  //  var tuesdayDone : Bool = false
- //   var wednesdayDone : Bool = false
-  //  var thursdayDone : Bool = false
-  //  var fridayDone : Bool = false
- //   var saturdayDone : Bool = false
-  //  var sundayDone : Bool = false
+
     
 }

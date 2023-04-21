@@ -12,7 +12,8 @@ import Firebase
 struct ContentView : View {
     
     @State var signedIn = false
-
+    
+    @StateObject var contentVM = ContentVM()
     var body: some View {
         
         if !signedIn {
@@ -20,7 +21,7 @@ struct ContentView : View {
             StartPageView(signedIn: $signedIn)
                 
         } else{
-            HabitsView()
+            HabitsView(vm : contentVM)
         }
             
         
@@ -109,8 +110,7 @@ struct HabitsView: View {
     // State som kommer ihåg vad vi skriver för vana
     @State var newHabitName = ""
     
-    
-
+    let vm : ContentVM
     
     var body: some View {
     
@@ -185,14 +185,23 @@ struct HabitsView: View {
                             HStack{
                                 Button ("Fredag",
                                         action:{
-                                   // habit.friday = true
+                                 
+                                    vm.toggle(habit: habit)
                                 })
                                 Spacer()
                                 Image(systemName: habit.friday ? "checkmark.seal.fill" :"5.circle")
                             }
                             .foregroundColor(habit.friday ? .green : .black)
+                        
+                        
+                        
                             HStack{
-                                Text("Lördag")
+                                
+                                Button ("Lördag",
+                                        action:{
+                                 
+                                    vm.toggle(habit: habit)
+                                })
                                 Spacer()
                                 Image(systemName: habit.saturday ? "checkmark.seal.fill":"6.circle")
                                 
@@ -299,7 +308,7 @@ struct HabitsView: View {
                 Button(action: {
                     
                     
-                    vm.toggle(habit: habit)
+                  //  vm.toggle(habit: habit)
                     
                     
                 }, label: {
