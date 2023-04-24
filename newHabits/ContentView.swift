@@ -107,8 +107,11 @@ struct HabitsView: View {
     // En bool variabel som ska ge oss en ruta där vi kan skriva in en ny habit
     @State var addHabit = false
     
+    @State var streak = 1
     // State som kommer ihåg vad vi skriver för vana
     @State var newHabitName = ""
+    
+    
     
     let vm : ContentVM
     
@@ -119,7 +122,7 @@ struct HabitsView: View {
         Text("New Habits")
             .font(.title)
             .padding()
-        //Spacer()
+        
         
        
         
@@ -138,94 +141,10 @@ struct HabitsView: View {
                     // Namnet på vanan och en ruta där vi kan checka av varje dag i vecka
                     // In Hstack så brevid varandra
                     RowView(habit: habit, vm : contentVM)
-                        .padding()
-                        .background(Rectangle()
-                        .foregroundColor(.white)
-                                //hörnen blir runda på kortet
-                        .cornerRadius(10)
-                        .shadow(radius: 5))
-
-                    VStack{
-                       
-
-                            HStack{
-                                
-                                
-                                Text("Måndag")
-                                Spacer()
-                                Image(systemName: habit.monday ? "checkmark.seal.fill" :"1.circle")
-                                                            
-                                
-                            }
-                            .foregroundColor(habit.monday ? .green : .black)
-                            
-                            HStack{
-                                Text("Tisdag")
-                                Spacer()
-                                Image(systemName: habit.tuesday ? "checkmark.seal.fill" :"2.circle")
-                                
-                            }
-                            .foregroundColor(habit.tuesday ? .green : .black)
-                            HStack{
-                                Text("Onsdag")
-                                Spacer()
-                                Image(systemName: habit.wednesday ? "checkmark.seal.fill" :"3.circle")
-                                
-                            }
-                            .foregroundColor(habit.wednesday ? .green : .black)
-                            HStack{
-                                Text("Torsdag")
-                                Spacer()
-                                Image(systemName: habit.thursday ? "checkmark.seal.fill" :
-                                        "4.circle")
-                                
-                            }
-                            .foregroundColor(habit.thursday ? .green : .black)
-                        
-                            HStack{
-                                Button ("Fredag",
-                                        action:{
-                                 
-                                    vm.toggle(habit: habit)
-                                })
-                                Spacer()
-                                Image(systemName: habit.friday ? "checkmark.seal.fill" :"5.circle")
-                            }
-                            .foregroundColor(habit.friday ? .green : .black)
                         
                         
-                        
-                            HStack{
-                                
-                                Button ("Lördag",
-                                        action:{
-                                 
-                                    vm.toggle(habit: habit)
-                                })
-                                Spacer()
-                                Image(systemName: habit.saturday ? "checkmark.seal.fill":"6.circle")
-                                
-                            }
-                            .foregroundColor(habit.saturday ? .green : .black)
-                            HStack{
-                                Text("Söndag")
-                                Spacer()
-                                    Image(systemName: habit.sunday ? "checkmark.seal.fill":"7.circle")
-                                
-                            }
-                            
-                            .foregroundColor(habit.sunday ? .green : .black)
-                            
-                        }
-                        .padding()
-                        .background(Rectangle()
-                        .foregroundColor(.white)
-                                //hörnen blir runda på kortet
-                        .cornerRadius(10)
-                        .shadow(radius: 10))
-                  
-                    
                    }
+              
                 // Ger oss möjligheten att radera en "habit" med hjälp av index
                 .onDelete(){ indexSet in
                     for index in indexSet {
@@ -266,7 +185,7 @@ struct HabitsView: View {
                 Button("Släng",action:{
                     addHabit = false
                 })
-                                
+                
             }
            
             .foregroundColor(Color(hue: 127, saturation: 146, brightness: 168))
@@ -296,33 +215,55 @@ struct HabitsView: View {
         var habit : Habit
         let vm : ContentVM
         
+        
         var body: some View {
+            
             HStack{
                 // Namnet på våran habit
                 Text(habit.newHabit)
-                Spacer()
-               
+                    
                 
+                    Spacer()
+                
+              
                 // Vi ska ha en checkbox för de specifika dagarna som kan ändras
                 //checkmark.circle om den är utförd(true) annars en tom cirkel(false).
                 Button(action: {
                     
                     
-                  //  vm.toggle(habit: habit)
-                    
+                    vm.toggle(habit: habit)
+                        
                     
                 }, label: {
                     // Här visar vi upp bilderna
                     // Men om vanan är utförd för den dag så får vi den i checkade bilden
                     // Om den är true alltså utförd visas den andra bilden med den i checkade cirkeln
-                    Image(systemName: habit.done ?   "questionmark.circle.fill":"checkmark.seal.fill")
-                    //Image(systemName: habit.mondayDone ? "checkmark.seal.fill":"6.circle")
+                    Image(systemName: habit.done ?   "questionmark.circle.fill":"plus.app")
+                        
                 })
-                
-                // Färg på titelns checkmarkering
+                          // Färg på titelns checkmarkering
                 .foregroundColor(.green)
-                
+               
             }
+            .padding()
+             .background(Rectangle()
+            .foregroundColor(.white)
+            .cornerRadius(10)
+            .shadow(radius: 2))
+
+            ZStack{
+               
+                   
+                Text("Nuvarande streak : " + String(habit.streak) + " dagar ")
+                    .padding()
+                     .background(Rectangle()
+                    .foregroundColor(.white)
+                            //hörnen blir runda på kortet
+                    .cornerRadius(10)
+                    //.shadow(radius: 2)
+                    )
+                
+              }
             //Färg på "habits" titeln
             .foregroundColor(.black)
             .font(.title3)
@@ -338,8 +279,7 @@ struct HabitsView: View {
     }
         
 
+
 }
 
 
-
- 

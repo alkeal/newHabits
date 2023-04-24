@@ -16,17 +16,15 @@ struct Habit : Codable, Identifiable{
     @DocumentID var id : String?
     
     // Här skriver vi in våran vana
-    var newHabit : String 
+    var newHabit : String
+    var streak : Int 
     // Alla bool har false pga att vi ej har uppnåt en dag än.
-    var monday : Bool = false
-    var tuesday : Bool = false
-    var wednesday : Bool = false
-    var thursday : Bool = false
-    var friday : Bool = false
-    var saturday : Bool = false
-    var sunday : Bool = false
+    var isPressed : Bool = true
+    
     // Om en vanan är uppnåd under en dag ska den kunna
     var done : Bool = true
 
+ 
+    
     
 }

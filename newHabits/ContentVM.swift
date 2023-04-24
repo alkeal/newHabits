@@ -55,16 +55,20 @@ class ContentVM : ObservableObject {
         let habitsRef = db.collection("users").document(user.uid).collection("habits")
         
         if let id = habit.id {
-           // habitsRef.document(id).updateData(["done" : !habit.done])
-           // habitsRef.document(id).updateData(["monday" : !habit.mondayDone])
-        
-           habitsRef.document(id).updateData(["friday" : !habit.friday])
-        //    habitsRef.document(id).updateData(["saturday" : !habit.saturday])
+            
+            // När knappen trycks ökar din streak med 1 poäng
+          let newStreak = habit.isPressed ? habit.streak + 1 : 0
+
+            // Här sätter vi vilken streak som vi ska uppnå alltså summan
+           let completedStreak = newStreak == 7 ? true : false
+
+            habitsRef.document(id).updateData(["done" : completedStreak, "streak": newStreak, "isPressed": true])
+
         }
+        
+        
     }
-    
-    
-    // Här sparar vi datan till firestore
+      // Här sparar vi datan till firestore
     func saveDataToFirestore(nameOfHabit: String){
         
         // guard så om det blir nil så
@@ -72,7 +76,7 @@ class ContentVM : ObservableObject {
         // Samlingen heter users , sedan dokument för de specifika användarna och sedan deras "habits"
         let habitsRef = db.collection("users").document(user.uid).collection("habits")
         
-        let habit = Habit(newHabit: nameOfHabit)
+        let habit = Habit(newHabit: nameOfHabit,streak: 0)
         
         
         // Spara
