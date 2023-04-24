@@ -199,11 +199,11 @@ struct HabitsView: View {
             
             
         }
-        .padding()
+        
        
         .background(Rectangle()
         .foregroundColor(.white)
-        //hörnen blir runda på kortet
+    
         .cornerRadius(0)
         .shadow(radius: 0))
     }
