@@ -136,9 +136,9 @@ struct HabitsView: View {
             List {
                 
                  // Och en specifik rad för de olika habits
-                 // Den visar varja habit i en egen rad med dess innehåll
+                 
                 ForEach(contentVM.habits) { habit in
-                    // Namnet på vanan och en ruta där vi kan checka av varje dag i vecka
+
                     // In Hstack så brevid varandra
                     RowView(habit: habit, vm : contentVM)
                         
@@ -221,7 +221,7 @@ struct HabitsView: View {
             HStack{
                 // Namnet på våran habit
                 Text(habit.newHabit)
-                    
+                    .font(.title3)
                 
                     Spacer()
                 
@@ -239,7 +239,8 @@ struct HabitsView: View {
                     // Men om vanan är utförd för den dag så får vi den i checkade bilden
                     // Om den är true alltså utförd visas den andra bilden med den i checkade cirkeln
                     Image(systemName: habit.done ?   "questionmark.circle.fill":"plus.app")
-                        
+                    .font(.system(size: 20.0))
+                    
                 })
                           // Färg på titelns checkmarkering
                 .foregroundColor(.green)
@@ -267,6 +268,7 @@ struct HabitsView: View {
             //Färg på "habits" titeln
             .foregroundColor(.black)
             .font(.title3)
+            
         }
         
     }

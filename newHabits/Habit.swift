@@ -17,8 +17,11 @@ struct Habit : Codable, Identifiable{
     
     // Här skriver vi in våran vana
     var newHabit : String
-    var streak : Int 
-    // Alla bool har false pga att vi ej har uppnåt en dag än.
+    
+    // Här räknar vi streaken
+    var streak : Int
+    
+    // När vi trycker på knappen ökar antalet i streaken
     var isPressed : Bool = true
     
     // Om en vanan är uppnåd under en dag ska den kunna
