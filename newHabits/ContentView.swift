@@ -42,16 +42,18 @@ struct StartPageView : View {
         
         ZStack{
             
-            Color(.systemGray)
-                .ignoresSafeArea()
+    
             
             VStack{
-         Text("New Habits")
-            .foregroundColor(.orange)
-            .font(.title)
-            .padding()
-            
+                
                 Spacer()
+                    .padding(80)
+                
+            Image("NewHabits")
+                .aspectRatio(contentMode: .fit)
+                
+            
+               // Spacer()
            
         Button(action: {
             auth.signInAnonymously{ result, error in
@@ -67,28 +69,26 @@ struct StartPageView : View {
         }, label: {
             
             Image(systemName: "person.crop.circle.badge.plus")
-                .padding(260)
+                .padding(130)
                 .foregroundColor(.orange)
                 .font(.system(size: 60.0))
                  .padding()
-                 
                
+            
                 .background(Rectangle()
                     .padding(110)
-                            
-                    .foregroundColor(.gray)
-                            //hörnen blir runda på kortet
-                    //.cornerRadius(15)
-                    //.shadow(radius: 10)
-                )
+                    .foregroundColor(.white))
+                          
                     
             
             
             
         })
         .foregroundColor(Color(hue: 120, saturation: 138, brightness: 168))
-      
-                }
+        
+                
+     
+                              }
         
             }
             
@@ -118,20 +118,16 @@ struct HabitsView: View {
     var body: some View {
     
             
-       
-        Text("New Habits")
-            .font(.title)
+        
+        Image("NewHabitsSmallOverhead")
             .padding()
-        
-        
-       
-        
-           
+            .aspectRatio( contentMode: .fit)
+            
         
         VStack {
             
                 
-                        // Image(systemName: "checkmark.circle")
+           
             //Här ska vi visa upp våra habits i en lista
             List {
                 
@@ -141,7 +137,7 @@ struct HabitsView: View {
 
                     // In Hstack så brevid varandra
                     RowView(habit: habit, vm : contentVM)
-                        
+                       
                         
                    }
               
@@ -153,7 +149,6 @@ struct HabitsView: View {
                      }
                       
                 }
-
             }
             // En knapp för att lägga till en ny "habit"
             Button(action: {
@@ -162,6 +157,7 @@ struct HabitsView: View {
                 
                 
             }, label: {
+                
                 
                 HStack{
                     Image(systemName: "doc.fill.badge.plus")
@@ -277,6 +273,7 @@ struct HabitsView: View {
     struct ContentView_Previews: PreviewProvider {
         static var previews: some View {
             ContentView()
+            
         }
     }
         
