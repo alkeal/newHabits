@@ -49,11 +49,8 @@ struct StartPageView : View {
                 Spacer()
                     .padding(80)
                 
-            Image("NewHabits")
-                .aspectRatio(contentMode: .fit)
-                
-            
-               // Spacer()
+            Image("NewHabitsStartPage")
+                    .padding(-100)
            
         Button(action: {
             auth.signInAnonymously{ result, error in
@@ -119,10 +116,10 @@ struct HabitsView: View {
     
             
         
-        Image("NewHabitsSmallOverhead")
-            .padding()
+        Image("NewHabitsBanner")
+            .padding(15)
             .aspectRatio( contentMode: .fit)
-            
+        
         
         VStack {
             
@@ -138,7 +135,7 @@ struct HabitsView: View {
                     // In Hstack så brevid varandra
                     RowView(habit: habit, vm : contentVM)
                        
-                        
+                     
                    }
               
                 // Ger oss möjligheten att radera en "habit" med hjälp av index
@@ -183,6 +180,7 @@ struct HabitsView: View {
                 })
                 
             }
+            
            
             .foregroundColor(Color(hue: 127, saturation: 146, brightness: 168))
               
@@ -212,6 +210,7 @@ struct HabitsView: View {
         let vm : ContentVM
         
         
+        
         var body: some View {
             
             HStack{
@@ -222,8 +221,6 @@ struct HabitsView: View {
                     Spacer()
                 
               
-                // Vi ska ha en checkbox för de specifika dagarna som kan ändras
-                //checkmark.circle om den är utförd(true) annars en tom cirkel(false).
                 Button(action: {
                     
                     
@@ -232,13 +229,12 @@ struct HabitsView: View {
                     
                 }, label: {
                     // Här visar vi upp bilderna
-                    // Men om vanan är utförd för den dag så får vi den i checkade bilden
                     // Om den är true alltså utförd visas den andra bilden med den i checkade cirkeln
-                    Image(systemName: habit.done ?   "questionmark.circle.fill":"plus.app")
+                    Image(systemName: habit.done ?   "star.circle.fill":"plus.app")
                     .font(.system(size: 20.0))
                     
                 })
-                          // Färg på titelns checkmarkering
+                // Färg på titelns checkmarkering
                 .foregroundColor(.green)
                
             }
@@ -255,7 +251,7 @@ struct HabitsView: View {
                     .padding()
                      .background(Rectangle()
                     .foregroundColor(.white)
-                            //hörnen blir runda på kortet
+                    //hörnen blir runda på kortet
                     .cornerRadius(10)
                     //.shadow(radius: 2)
                     )

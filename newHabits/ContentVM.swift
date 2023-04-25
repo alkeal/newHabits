@@ -10,8 +10,7 @@ import Firebase
 
 //**** FUNKTIONALITETEN I APPEN FÖr FIRESTORE SKRIVS HÄR ****
 
-// Viewmodel måste alltid var en klass
-// Alla ändringar i appen sker här
+
 class ContentVM : ObservableObject {
     
     
