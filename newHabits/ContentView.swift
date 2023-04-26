@@ -109,18 +109,39 @@ struct HabitsView: View {
     @State var newHabitName = ""
     
     
-    
     let vm : ContentVM
     
     var body: some View {
     
             
-        
+        HStack{
+            
+            Spacer()
+            Spacer()
         Image("NewHabitsBanner")
             .padding(15)
-            .aspectRatio( contentMode: .fit)
+            .aspectRatio( contentMode: .fit )
+          
+        // Logga ut knapp så skickar oss tillbaka till startsidan i appen
         
-        
+        Button(action: {
+            
+            
+                 
+                    
+
+        }, label: {
+            
+            Image(systemName: "ellipsis.rectangle.fill")
+                .foregroundColor(.orange)
+                .font(.system(size: 25.0))
+                .padding(10)
+        })
+          
+        }
+           
+    
+              
         VStack {
             
                 
@@ -230,12 +251,11 @@ struct HabitsView: View {
                 }, label: {
                     // Här visar vi upp bilderna
                     // Om den är true alltså utförd visas den andra bilden med den i checkade cirkeln
-                    Image(systemName: habit.done ?   "star.circle.fill":"plus.app")
-                    .font(.system(size: 20.0))
-                    
+                    Image(systemName: habit.done ?   "checkmark.square.fill":"plus.app")
+                    .font(.system(size: 25.0))
+                    .foregroundColor(.green)
                 })
-                // Färg på titelns checkmarkering
-                .foregroundColor(.green)
+                
                
             }
             .padding()
@@ -251,12 +271,12 @@ struct HabitsView: View {
                     .padding()
                      .background(Rectangle()
                     .foregroundColor(.white)
-                    //hörnen blir runda på kortet
+                   
                     .cornerRadius(10)
-                    //.shadow(radius: 2)
+                  
                     )
                 
-              }
+            }
             //Färg på "habits" titeln
             .foregroundColor(.black)
             .font(.title3)

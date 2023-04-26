@@ -17,6 +17,7 @@
 		0000CE1929ED8880008B4502 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 0000CE1829ED8880008B4502 /* FirebaseAuth */; };
 		0000CE1B29ED8880008B4502 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 0000CE1A29ED8880008B4502 /* FirebaseFirestore */; };
 		0000CE1D29ED8880008B4502 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0000CE1C29ED8880008B4502 /* FirebaseFirestoreSwift */; };
+		00215DC529F9548200CFE18D /* SettingsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00215DC429F9548200CFE18D /* SettingsContentView.swift */; };
 		00E6405F29EEAB1000619A46 /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E6405E29EEAB1000619A46 /* Habit.swift */; };
 		00E6406229EEBB9C00619A46 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 00E6406129EEBB9C00619A46 /* GoogleService-Info.plist */; };
 		00FF153629F00236002673B4 /* ContentVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FF153529F00236002673B4 /* ContentVM.swift */; };
@@ -50,6 +51,7 @@
 		0000CE0429ED876D008B4502 /* newHabitsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = newHabitsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0000CE0829ED876D008B4502 /* newHabitsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = newHabitsUITests.swift; sourceTree = "<group>"; };
 		0000CE0A29ED876D008B4502 /* newHabitsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = newHabitsUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		00215DC429F9548200CFE18D /* SettingsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsContentView.swift; sourceTree = "<group>"; };
 		00E6405E29EEAB1000619A46 /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
 		00E6406029EEBAB800619A46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		00E6406129EEBB9C00619A46 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				0000CDF329ED876D008B4502 /* Preview Content */,
 				00E6405E29EEAB1000619A46 /* Habit.swift */,
 				00FF153529F00236002673B4 /* ContentVM.swift */,
+				00215DC429F9548200CFE18D /* SettingsContentView.swift */,
 			);
 			path = newHabits;
 			sourceTree = "<group>";
@@ -287,6 +290,7 @@
 				00E6405F29EEAB1000619A46 /* Habit.swift in Sources */,
 				0000CDF029ED876C008B4502 /* ContentView.swift in Sources */,
 				0000CDEE29ED876C008B4502 /* newHabitsApp.swift in Sources */,
+				00215DC529F9548200CFE18D /* SettingsContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

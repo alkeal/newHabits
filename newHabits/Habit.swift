@@ -24,7 +24,7 @@ struct Habit : Codable, Identifiable{
     // När vi trycker på knappen ökar antalet i streaken
     var isPressed : Bool = true
     
-    // Om en vanan är uppnåd under en dag ska den kunna
+    // När en vecka är uppnåd så är det true och vi får en ny bild/alert
     var done : Bool = true
 
  

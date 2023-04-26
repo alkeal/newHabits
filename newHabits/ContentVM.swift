@@ -60,7 +60,7 @@ class ContentVM : ObservableObject {
 
             // Här sätter vi vilken streak som vi ska uppnå alltså summan
            let completedStreak = newStreak == 7 ? true : false
-                
+           
 
             habitsRef.document(id).updateData(["done" : completedStreak, "streak": newStreak, "isPressed": true])
 
