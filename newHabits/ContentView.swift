@@ -21,7 +21,7 @@ struct ContentView : View {
             StartPageView(signedIn: $signedIn)
                 
         } else{
-            HabitsView(vm : contentVM)
+            HabitsView()    //(vm : contentVM)
         }
             
         
@@ -99,8 +99,8 @@ struct StartPageView : View {
 struct HabitsView: View {
     
     // Så vi får tag på våran info från viewmodel
-   @StateObject var contentVM = ContentVM()
-  
+    @StateObject var contentVM = ContentVM()
+    
     // En bool variabel som ska ge oss en ruta där vi kan skriva in en ny habit
     @State var addHabit = false
     
@@ -108,123 +108,124 @@ struct HabitsView: View {
     // State som kommer ihåg vad vi skriver för vana
     @State var newHabitName = ""
     
-    
-    let vm : ContentVM
+    @State var signedIn = false
+
+    //let vm : ContentVM
     
     var body: some View {
-    
-            
-        HStack{
-            
-            Spacer()
-            Spacer()
-        Image("NewHabitsBanner")
-            .padding(15)
-            .aspectRatio( contentMode: .fit )
-          
-        // Logga ut knapp så skickar oss tillbaka till startsidan i appen
         
-        Button(action: {
+   
+        NavigationView{
             
-            
-                 
-                    
-
-        }, label: {
-            
-            Image(systemName: "ellipsis.rectangle.fill")
-                .foregroundColor(.orange)
-                .font(.system(size: 25.0))
-                .padding(10)
-        })
-          
-        }
-           
-    
-              
-        VStack {
-            
+            VStack{
                 
+           HStack{
+            
+            
+            Spacer()
+            Image("NewHabitsBanner")
+                .padding(15)
+                .aspectRatio( contentMode: .fit )
            
-            //Här ska vi visa upp våra habits i en lista
-            List {
-                
-                 // Och en specifik rad för de olika habits
+            // Logga ut knapp så skickar oss tillbaka till startsidan i appen
+             Button(action: {
                  
-                ForEach(contentVM.habits) { habit in
-
-                    // In Hstack så brevid varandra
-                    RowView(habit: habit, vm : contentVM)
-                       
-                     
+                 
+             }, label: {
+                 HStack{
+                 Image(systemName: "ellipsis.rectangle.fill")
+                     .foregroundColor(.orange)
+                     .font(.system(size: 25.0))
+                     .padding(10)
                    }
-              
-                // Ger oss möjligheten att radera en "habit" med hjälp av index
-                .onDelete(){ indexSet in
-                    for index in indexSet {
-                        // Vi skickar med vilken plats den som vi raderar är på
-                        contentVM.deleteFromFirestoreAndList(index: index)
-                     }
-                      
-                }
-            }
-            // En knapp för att lägga till en ny "habit"
-            Button(action: {
-                
-                addHabit = true
-                
-                
-            }, label: {
-                
-                
-                HStack{
-                    Image(systemName: "doc.fill.badge.plus")
-                        .foregroundColor(.orange)
-                        .font(.system(size: 35.0))
-                    
-                }
-
-            })
-            
-            .alert("Lägg till en ny vana",isPresented: $addHabit){
-                
-                TextField("Skriv här",text: $newHabitName)
-                Button("Spara" ,action: {
-                
-                    contentVM.saveDataToFirestore(nameOfHabit: newHabitName)
-                    newHabitName = ""
+                 
+                })
                     
                    
+            }
+            
+                //Här ska vi visa upp våra habits i en lista
+                List {
+                    
+                    // Och en specifik rad för de olika habits
+                    
+                    ForEach(contentVM.habits) { habit in
+                        
+                        // In Hstack så brevid varandra
+                        RowView(habit: habit, vm : contentVM)
+                        
+                        
+                    }
+                    
+                    // Ger oss möjligheten att radera en "habit" med hjälp av index
+                    .onDelete(){ indexSet in
+                        for index in indexSet {
+                            // Vi skickar med vilken plats den som vi raderar är på
+                            contentVM.deleteFromFirestoreAndList(index: index)
+                        }
+                        
+                    }
+                }
+                // En knapp för att lägga till en ny "habit"
+                Button(action: {
+                    
+                    addHabit = true
+                    
+                    
+                }, label: {
+                    
+                    
+                    HStack{
+                        Image(systemName: "doc.fill.badge.plus")
+                            .foregroundColor(.orange)
+                            .font(.system(size: 35.0))
+                        
+                    }
+                    
                 })
-                Button("Släng",action:{
-                    addHabit = false
-                })
+                
+                .alert("Lägg till en ny vana",isPresented: $addHabit){
+                    
+                    TextField("Skriv här",text: $newHabitName)
+                    Button("Spara" ,action: {
+                        
+                        contentVM.saveDataToFirestore(nameOfHabit: newHabitName)
+                        newHabitName = ""
+                        
+                        
+                    })
+                    Button("Släng",action:{
+                        addHabit = false
+                    })
+                    
+                }
+                
+                
+                .foregroundColor(Color(hue: 127, saturation: 146, brightness: 168))
+                
+            } .onAppear(){
+                
+                // Här lyssnar den efter ändringar och uppdaterar när den märker av dem
+                contentVM.updateAppAndListenToFirestore()
+                
+                
+                
                 
             }
             
-           
-            .foregroundColor(Color(hue: 127, saturation: 146, brightness: 168))
-              
-        } .onAppear(){
             
-            // Här lyssnar den efter ändringar och uppdaterar när den märker av dem
-            contentVM.updateAppAndListenToFirestore()
-            
-            
-            
+            .background(Rectangle()
+                .foregroundColor(.white)
+                        
+                .cornerRadius(0)
+                .shadow(radius: 0))
             
         }
-        
-       
-        .background(Rectangle()
-        .foregroundColor(.white)
-    
-        .cornerRadius(0)
-        .shadow(radius: 0))
+           
     }
     
     
-
+    
     struct RowView: View {
         
         var habit : Habit
@@ -239,41 +240,41 @@ struct HabitsView: View {
                 Text(habit.newHabit)
                     .font(.title3)
                 
-                    Spacer()
+                Spacer()
                 
-              
+                
                 Button(action: {
                     
                     
                     vm.toggle(habit: habit)
-                        
+                    
                     
                 }, label: {
                     // Här visar vi upp bilderna
                     // Om den är true alltså utförd visas den andra bilden med den i checkade cirkeln
                     Image(systemName: habit.done ?   "checkmark.square.fill":"plus.app")
-                    .font(.system(size: 25.0))
-                    .foregroundColor(.green)
+                        .font(.system(size: 25.0))
+                        .foregroundColor(.green)
                 })
                 
-               
+                
             }
             .padding()
-             .background(Rectangle()
-            .foregroundColor(.white)
-            .cornerRadius(10)
-            .shadow(radius: 2))
-
+            .background(Rectangle()
+                .foregroundColor(.white)
+                .cornerRadius(10)
+                .shadow(radius: 2))
+            
             ZStack{
-               
-                   
+                
+                
                 Text("Nuvarande streak : " + String(habit.streak) + " dagar ")
                     .padding()
-                     .background(Rectangle()
-                    .foregroundColor(.white)
-                   
-                    .cornerRadius(10)
-                  
+                    .background(Rectangle()
+                        .foregroundColor(.white)
+                                
+                        .cornerRadius(10)
+                                
                     )
                 
             }
@@ -285,16 +286,17 @@ struct HabitsView: View {
         
     }
     
+}
     
     struct ContentView_Previews: PreviewProvider {
         static var previews: some View {
-            ContentView()
-            
+            //ContentView()
+            HabitsView(contentVM: ContentVM())
         }
     }
         
 
 
-}
+
 
 
