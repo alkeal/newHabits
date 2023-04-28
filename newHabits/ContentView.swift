@@ -108,7 +108,6 @@ struct HabitsView: View {
     // State som kommer ihåg vad vi skriver för vana
     @State var newHabitName = ""
     
-    @State var signedIn = false
 
     //let vm : ContentVM
     
@@ -129,7 +128,8 @@ struct HabitsView: View {
            
             // Logga ut knapp så skickar oss tillbaka till startsidan i appen
              Button(action: {
-                 
+                 //NavigationLink(destination: StartPageView(signedIn: signedIn){
+                 //StartPageView(signedIn: signedIn), label: "")
                  
              }, label: {
                  HStack{
