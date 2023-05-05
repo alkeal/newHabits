@@ -126,7 +126,7 @@ struct HabitsView: View {
                 .padding(15)
                 .aspectRatio( contentMode: .fit )
            
-            // Logga ut knapp så skickar oss tillbaka till startsidan i appen
+            // Knapp som ska skicka oss till inställningarna
              Button(action: {
                  //NavigationLink(destination: StartPageView(signedIn: signedIn){
                  //StartPageView(signedIn: signedIn), label: "")
